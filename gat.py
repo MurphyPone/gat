@@ -10,31 +10,37 @@ LOOKUP = {
         "Pistol": {
             "range":    (9,  21),
             "accuracy": (1.9, 2.4),
-            "variants": ["revolver",]
+            "variants": ["Revolver", "Pistol"]
         },
         "Assualt Rifle": {
             "range":    (19, 31),
             "accuracy": (1.2, 1.7),
+            "variants": ["DMR", "Automatic AR", "Semi-Automatic AR"]
         },
         "Sub Machine Gun": {
             "range":     (15, 28),
             "accuracy":  (2.5, 3.5),
+            "variants": ["Lil Uzi Vertical",]
         },
         "Sniper Rifle": {
             "range":    (60, 100),
             "accuracy": (0.0, 1.0),
+            "variants": ["Bolt Action"]
         },
         "Light Machine Gun":  {
             "range":    (27, 35),
             "accuracy": (2.4, 2.8),
+            "variants": None
         },
         "Rocket Launcher": {
             "range":    (65, 100),
             "accuracy": (3.8, 4.1),
+            "variants": ["Bazooka", "RPG"]
         },
         "Special": {
             "range":    (0,  100),
             "accuracy": (0.0, 5.0), 
+            "variants": ["Ballistic Knife", "Sword"]
         },
     },
     "rarity": [ # name, color, dmg dmg_modifier
@@ -176,6 +182,11 @@ class Gat():
 
         self.accuracy = random.uniform(acc_lo, acc_hi)
         
+        if gat_dict["variants"]:
+            self.variant = random.choice(gat_dict["variants"])
+        else:
+            self.variant = self.type
+        
 
     def verbose(self):
         if self.dmg_mod > 0:
@@ -199,7 +210,7 @@ class Gat():
         else: 
             sign = ""
 
-        return f"[{self.color}]{self.rarity}[/{self.color}] | {self.manufacturer} | {self.type} | [{self.roll_quality}]{self.damage} [/{self.roll_quality}]({sign}{self.dmg_mod})" 
+        return f"[{self.color}]{self.rarity}[/{self.color}] | {self.manufacturer} | {self.variant} | [{self.roll_quality}]{self.damage} [/{self.roll_quality}]({sign}{self.dmg_mod})" 
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
